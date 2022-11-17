@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>opdracht4</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<style>
+  table, th, td {
+    border:1px solid black;
+  }
+  </style>
+<body>
+  <div id="app" v-for="dieFace in dieFaces">
+    <button v-on:click ="rollDice">Roll</button>
+
+    <table>
+      <tr>
+        <th>Current Throw</th>
+      </tr>
+    
+      <td>{{last}}</th>
+        <tr>
+        <th>Throws</th>
+      </tr> 
+        <td>{{calculateDice}}
+        </th> 
+        <tr>
+          <th>count</th>
+        </tr> 
+          <td>{{count}}</th>           
+    
+  </table>
+   
+
+
+  </div>
+    
+    
+    <script>
+    Vue.createApp({
+        
+        data() {
+          return {
+            roll: [],
+            last: [],
+            dice: [],
+            g:[],
+            count : {
+            1:0,
+            2:0,
+            3:0,
+            3:0,
+            4:0,
+            5:0,
+            6:0
+            }
+            
+          }
+        },
+
+      computed: {
+        calculateDice(){
+          
+          let total= [
+                {one:this.roll[0]},
+                {two:this.roll[1]},
+                {three:this.roll[2]},
+                {four:this.roll[3]},
+                {five:this.roll[4]},
+                {six:this.roll[5]}
+          ]
+          return total;
+        },
+
+        result(){
+          return parseInt(this.last[0])+parseInt(this.last[1])+parseInt(this.last[2]);
+          
+        }
+      },
+
+      methods: {
+
+        
+          rollDice() {
+           
+           
+            for (let index = 0; index < 3; index++) 
+              {
+                this.dice.push(Math.ceil(Math.random()*6))
+              } 
+              this.g=this.dice;        
+              this.last=this.dice;
+              this.count[this.g[0]]++;         
+              this.count[this.g[1]]++; 
+              this.count[this.g[2]]++;
+              
+              if(!this.roll[5]) {   
+                this.roll.push(this.dice); 
+              } else {
+                this.roll=[];
+                this.last=[]
+                this.count= {
+                              1:0,
+                              2:0,
+                              3:0,
+                              4:0,
+                              5:0,
+                              6:0
+                            };
+              }
+
+              this.dice=[];
+                           
+          },       
+      }
+               
+      
+  }).mount('#app');
+
+  </script> 
+
+<script src="./main.js"></script>
+</body>
+</html>
